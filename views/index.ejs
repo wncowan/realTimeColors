@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Button Game</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script>
+     $(document). ready(function (){
+            var socket = io(); 
+
+            $('button').on("click", function(){ 
+                var background = $(this).text();
+                 console.log(background);
+                 socket.emit('new_color',background);
+               
+            })
+            socket.on('first_background',function(data){
+               $('body').css('background-color',data);
+            })
+            
+            socket.on('new_background',function(data){
+               $('body').css('background-color',data);
+            })
+        })
+    </script>
+</head>
+<body style="background-color:aliceblue">
+    <div class="container">
+        <div class="row"></div>
+        <div class="row mt-5 justify-content-md-center">
+            <div class="col-md-4">
+                <button class=" btn-outline-warning btn-lg text-dark" style="width:100%">Yellow</button>
+            </div>
+            <div class="col-md-4">
+                <button class="btn-outline-primary btn-lg text-dark" style="width:100%">Blue</button>
+            </div>
+            <div class="col-md-4">
+                <button class="btn-outline-success btn-lg text-dark" style="width:100%">Green</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
